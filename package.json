@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/index"
+    "dev": "node src/index",
+    "pbjs": "npx pbjs -t static -o src/static/proto.js  src/proto/*.proto"
   },
   "keywords": [],
   "author": "",

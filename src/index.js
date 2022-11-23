@@ -3,7 +3,8 @@ const path = require('path');
 const static = require('koa-static');
 const Router = require('koa-router');
 const _ = require('lodash');
-var protobuf = require('protobufjs');
+const protobuf = require('protobufjs');
+const data = require('./data');
 
 let _proto = protobuf.loadSync(
   path.resolve(__dirname, './proto/MessageType.proto')
@@ -12,15 +13,12 @@ let _proto = protobuf.loadSync(
 const app = new Koa();
 const router = new Router();
 
+/**
+ * protobuf 接口
+ */
 router.get('/api/protobuf', (ctx) => {
   const ResponseMessage = _proto.lookupType('framework.Response');
-  const playload = {
-    code:1,
-    msg:'ok',
-    data:{
-      arr:[1,2,3,4,5]
-    }
-  };
+  const playload = data;
   const errMsg = ResponseMessage.verify(playload);
   if(errMsg){
     throw Error(errMsg);
@@ -30,15 +28,12 @@ router.get('/api/protobuf', (ctx) => {
   ctx.body = buffer;
 });
 
+
+/**
+ * json 接口
+ */
 router.get('/api/json', (ctx) => {
-  const playload = {
-    code:1,
-    msg:'ok',
-    data:{
-      arr:[1,2,3,4,5]
-    }
-  };
-  ctx.body = playload;
+  ctx.body = data;
 });
 
 // 静态资源目录对于相对入口文件index.js的路径

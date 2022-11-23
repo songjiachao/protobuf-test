@@ -10,6 +10,8 @@
   <script src="https://unpkg.com/element-plus"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.min.js"></script>
+  <script>$protobuf = protobuf;</script>
+  <script src="./proto.js"></script>
 
   <title>Element Plus demo</title>
 </head>
@@ -35,11 +37,12 @@
             },
             responseType: 'arraybuffer'
           })
-          console.log(data)
+          const buf = protobuf.util.newBuffer(data.data)
+          console.log($root.framework.Response.decode(buf))
         },
         async getJSON() {
           const data = await axios.get('/api/json')
-          console.log(data)
+          console.log(data.data)
         }
       }
     };
