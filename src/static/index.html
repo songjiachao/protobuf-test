@@ -37,8 +37,8 @@
             },
             responseType: 'arraybuffer'
           })
-          const buf = protobuf.util.newBuffer(data.data)
-          console.log($root.framework.Response.decode(buf))
+          const buf = $protobuf.util.newBuffer(data.data)
+          console.log($root.framework.Response.decode(buf).toJSON())
         },
         async getJSON() {
           const data = await axios.get('/api/json')
