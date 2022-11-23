@@ -1,0 +1,52 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <script src="https://unpkg.com/vue@next"></script>
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-plus"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/protobufjs@7.X.X/dist/protobuf.min.js"></script>
+
+  <title>Element Plus demo</title>
+</head>
+
+<body>
+  <div id="app">
+    <el-button @click="getProtobuf">Protobuf</el-button>
+    <el-button @click="getJSON">JSON</el-button>
+  </div>
+  <script>
+    const App = {
+      data() {
+        return {
+          message: "Hello Element Plus",
+        };
+      },
+      methods: {
+        async getProtobuf() {
+          const data = await axios.get('/api/protobuf', {
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Content-Type': 'application/octet-stream'
+            },
+            responseType: 'arraybuffer'
+          })
+          console.log(data)
+        },
+        async getJSON() {
+          const data = await axios.get('/api/json')
+          console.log(data)
+        }
+      }
+    };
+    const app = Vue.createApp(App);
+    app.use(ElementPlus);
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+
+package framework;
+
+message Request {
+    uint32 type = 1;
+}
+
+// 消息响应包
+message Response {
+    int32 code = 1;
+    string msg = 2;
+    google.protobuf.Any data = 3;
+}
