@@ -5,6 +5,10 @@ const Router = require('koa-router');
 const _ = require('lodash');
 const protobuf = require('protobufjs');
 const data = require('./data');
+const miniJSON = {
+  code: 0,
+  meg: '成功',
+};
 
 let _proto = protobuf.loadSync(
   path.resolve(__dirname, './proto/MessageType.proto')
@@ -20,7 +24,7 @@ router.get('/api/protobuf', (ctx) => {
   const ResponseMessage = _proto.lookupType('framework.Response');
   const playload = data;
   const errMsg = ResponseMessage.verify(playload);
-  if(errMsg){
+  if (errMsg) {
     throw Error(errMsg);
   }
   var message = ResponseMessage.create(playload);
@@ -32,8 +36,12 @@ router.get('/api/protobuf', (ctx) => {
 /**
  * json 接口
  */
-router.get('/api/json', (ctx) => {
+router.get('/api/JSON', (ctx) => {
   ctx.body = data;
+});
+
+router.get('/api/miniJSON', (ctx) => {
+  ctx.body = miniJSON;
 });
 
 // 静态资源目录对于相对入口文件index.js的路径

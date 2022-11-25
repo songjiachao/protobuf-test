@@ -20,6 +20,7 @@
   <div id="app">
     <el-button @click="getProtobuf">Protobuf</el-button>
     <el-button @click="getJSON">JSON</el-button>
+    <el-button @click="getMiniJSON">miniJSON</el-button>
   </div>
   <script>
     const App = {
@@ -41,7 +42,11 @@
           console.log($root.framework.Response.decode(buf).toJSON())
         },
         async getJSON() {
-          const data = await axios.get('/api/json')
+          const data = await axios.get('/api/JSON')
+          console.log(data.data)
+        },
+        async getMiniJSON() {
+          const data = await axios.get('/api/miniJSON')
           console.log(data.data)
         }
       }
